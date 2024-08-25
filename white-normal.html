@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout of LeetCode Search</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/darkreader/4.9.87/darkreader.js"
+      integrity="sha512-22mYlAugB8HLKgVweSjQu4cQeFYxlMsoJaTLE/jw05VQc3qUluX+v57CPFM1XsoUTMyZn6o8F1rI/7pI8WZKog=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      #allFilters {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 4px;
+      }
+
+      #difficultyDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+      .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        background: #111827;
+        outline: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ffffff;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #c1c6d1;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gray-200 text-gray-900 font-roboto flex flex-col items-center h-screen p-4"
+  >
+    <div class="w-full max-w-screen-md text-center mb-4">
+      <div
+        class="text-xs font-medium tracking-wide mb-4 uppercase text-gray-600"
+      >
+        Search for Problems
+      </div>
+      <form onsubmit="searchCall(event)">
+        <div
+          class="flex items-center justify-between bg-gray-100 rounded-full py-2 px-4 shadow-md"
+        >
+          <input
+            id="searchQueryInput"
+            type="text"
+            placeholder="Search"
+            class="flex-grow h-10 bg-white rounded-full px-4 text-gray-900 text-sm focus:outline-none"
+            value=""
+          />
+          <button
+            id="searchQuerySubmit"
+            type="submit"
+            name="searchQuerySubmit"
+            class="w-10 h-10 bg-transparent hover:bg-gray-300 rounded-full flex items-center justify-center"
+          >
+            <img src="other/images/search.png" alt="Search Icon" class="w-6 h-6" />
+          </button>
+          <button
+            id="filter"
+            class="w-10 h-10 bg-transparent hover:bg-gray-300 rounded-full flex items-center justify-center"
+          >
+            <img src="other/svgs/filter.svg" id="filterCall" alt="Filter Icon" class="w-6 h-6" />
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="allFilters" class="flex justify-center items-center gap-8 p-4">
+      <div id="difficultyDiv" class="flex flex-col items-center mb-4">
+        <span
+          id="previous"
+          onclick="changeDifficulty('previous')"
+          class="hidden block mb-2 cursor-pointer opacity-50"
+          >easy</span
+        >
+        <span
+          id="current"
+          onclick="buttonClicked()"
+          class="block cursor-pointer bg-gray-900 text-white py-1 px-4 rounded-full"
+          >medium</span
+        >
+        <span
+          id="next"
+          onclick="changeDifficulty('next')"
+          class="hidden block mt-2 cursor-pointer opacity-50"
+          >hard</span
+        >
+      </div>
+
+      <div class="relative w-full max-w-md mx-auto">
+        <input
+          id="accSlider"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          class="slider"
+        />
+        <div class="absolute top-0 left-full ml-4 flex items-center">
+          <span id="accValue" class="text-gray-700 text-lg">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="problemList"
+      class="w-full max-w-screen-lg bg-white rounded-lg p-4 shadow-lg"
+    >
+      <div
+        onclick="redirectToProblem(event)"
+        titleSlug="two-sum"
+        class="bg-gray-100 rounded-lg overflow-hidden cursor-pointer"
+      >
+        <div
+          class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2"
+        >
+          <input
+            type="checkbox"
+            onchange="updateLocalStorage(event)"
+            class="mr-4"
+          />
+          <h3 class="text-gray-900 text-left flex-1">Two Sum</h3>
+          <div class="flex-1 flex justify-center items-center">
+            <p class="text-sm text-gray-600">
+              Difficulty: <span class="text-green-500">Easy</span>
+            </p>
+            <p class="text-sm text-gray-600 ml-2">
+              Accuracy: <span class="text-yellow-500">53%</span>
+            </p>
+          </div>
+          <div class="flex-1 flex justify-end">
+            <span
+              class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1"
+              >Array</span
+            >
+            <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md"
+              >Hash Table</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        onclick="redirectToProblem(event)"
+        titleSlug="replace-all-s-to-avoid-consecutive-repeating-characters"
+        class="bg-gray-100 rounded-lg overflow-hidden cursor-pointer mt-4"
+      >
+        <div
+          class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2"
+        >
+          <input
+            type="checkbox"
+            onchange="updateLocalStorage(event)"
+            class="mr-4"
+          />
+          <h3 class="text-gray-900 text-left flex-1">
+            Replace All ?'s to Avoid Consecut...
+          </h3>
+          <div class="flex-1 flex justify-center items-center">
+            <p class="text-sm text-gray-600">
+              Difficulty: <span class="text-green-500">Easy</span>
+            </p>
+            <p class="text-sm text-gray-600 ml-2">
+              Accuracy: <span class="text-yellow-500">46.3%</span>
+            </p>
+          </div>
+          <div class="flex-1 flex justify-end">
+            <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md"
+              >String</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        onclick="redirectToProblem(event)"
+        titleSlug="longest-subarray-of-1s-after-deleting-one-element"
+        class="bg-gray-100 rounded-lg overflow-hidden cursor-pointer mt-4"
+      >
+        <div
+          class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2"
+        >
+          <input
+            type="checkbox"
+            onchange="updateLocalStorage(event)"
+            class="mr-4"
+          />
+          <h3 class="text-gray-900 text-left flex-1">
+            Longest Subarray of 1's After Del...
+          </h3>
+          <div class="flex-1 flex justify-center items-center">
+            <p class="text-sm text-gray-600">
+              Difficulty: <span class="text-yellow-500">Medium</span>
+            </p>
+            <p class="text-sm text-gray-600 ml-2">
+              Accuracy: <span class="text-red-500">67.57%</span>
+            </p>
+          </div>
+          <div class="flex-1 flex justify-end">
+            <span
+              class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1"
+              >Array</span
+            >
+            <span
+              class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1"
+              >Dynamic Programming</span
+            >
+            <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md"
+              >Sliding Window</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts/main2.js"></script>
+  </body>
+</html>

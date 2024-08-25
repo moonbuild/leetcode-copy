@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Eyes Follow Cursor</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .face {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .eye {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .pupil {
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .mouth {
+            width: 100px;
+            height: 50px;
+            background-color: black;
+            border-radius: 0 0 50px 50px;
+            position: absolute;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="face">
+        <div class="eye" id="left-eye"> 
+            <div class="pupil" id="left-pupil"></div>
+        </div>
+        <div class="eye" id="right-eye">
+            <div class="pupil" id="right-pupil"></div>
+        </div>
+        <div class="mouth"></div>
+    </div>
+    <script>
+        document.addEventListener('mousemove', (event) => {
+            const eyes = document.querySelectorAll('.eye');
+            eyes.forEach((eye) => {
+                const pupil = eye.querySelector('.pupil');
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                console.log(rect);
+                console.log(event.clientX, event.clientY);
+                console.log(eyeCenterX,eyeCenterY);
+                const angle = Math.atan2(event.clientY - eyeCenterY, event.clientX - eyeCenterX);
+                const distance = Math.min(rect.width / 4, rect.height / 4);
+                const pupilX = distance * Math.cos(angle);
+                const pupilY = distance * Math.sin(angle);
+                pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

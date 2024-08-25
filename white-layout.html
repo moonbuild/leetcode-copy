@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout of LeetCode Search</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-200 text-gray-900 font-roboto flex flex-col items-center h-screen p-4">
+    <div class="w-full max-w-screen-md text-center mb-4">
+        <div class="text-xs font-medium tracking-wide mb-4 uppercase text-gray-600">Search for Problems</div>
+        <form onsubmit="searchCall(event)">
+            <div class="flex items-center justify-between bg-gray-100 rounded-full py-2 px-4 shadow-md">
+                <input id="searchQueryInput" type="text" placeholder="Search"
+                    class="flex-grow h-10 bg-white rounded-full px-4 text-gray-900 text-sm focus:outline-none"
+                    value="">
+                <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit"
+                    class="w-10 h-10 bg-transparent hover:bg-gray-300 rounded-full flex items-center justify-center">
+                    <img src="other/svgs/search.svg" alt="Search Icon" class="w-6 h-6">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="difficultyDiv" class="flex flex-col items-center mb-4">
+        <span id="previous" onclick="changeDifficulty('previous')"
+            class="opacity-50 block mb-2 cursor-pointer">easy</span>
+        <span id="myButton" onclick="buttonClicked()"
+            class="block bg-gray-900 text-white py-1 px-4 rounded-full cursor-pointer">medium</span>
+        <span id="next" onclick="changeDifficulty('next')"
+            class="opacity-50 block mt-2 cursor-pointer">hard</span>
+    </div>
+
+    <div class="w-full max-w-screen-lg bg-white rounded-lg p-4 shadow-lg">
+        <div class="bg-gray-100 rounded-lg overflow-hidden">
+            <div class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2">
+                <input type="checkbox" class="mr-4">
+                <h3 class="text-gray-900 text-left flex-1">Two Sum</h3>
+                <div class="flex-1 flex justify-center items-center">
+                    <p class="text-sm text-gray-600">Difficulty: <span
+                            class="text-green-500">Easy</span></p>
+                    <p class="text-sm text-gray-600 ml-2">Accuracy: <span
+                            class="text-green-500">53%</span></p>
+                </div>
+                <div class="flex-1 flex justify-end">
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1">Array</span>
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md">Hash Table</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg overflow-hidden mt-4">
+            <div class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2">
+                <input type="checkbox" class="mr-4">
+                <h3 class="text-gray-900 text-left flex-1">Replace All ?'s to Avoid Consecut...</h3>
+                <div class="flex-1 flex justify-center items-center">
+                    <p class="text-sm text-gray-600">Difficulty: <span
+                            class="text-green-500">Easy</span></p>
+                    <p class="text-sm text-gray-600 ml-2">Accuracy: <span
+                            class="text-yellow-500">46.3%</span></p>
+                </div>
+                <div class="flex-1 flex justify-end">
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md">String</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 rounded-lg overflow-hidden mt-4">
+            <div class="flex items-center justify-between bg-gray-200 rounded-t-lg px-4 py-2">
+                <input type="checkbox" class="mr-4">
+                <h3 class="text-gray-900 text-left flex-1">Longest Subarray of 1's After Del...</h3>
+                <div class="flex-1 flex justify-center items-center">
+                    <p class="text-sm text-gray-600">Difficulty: <span
+                            class="text-orange-500">Medium</span></p>
+                    <p class="text-sm text-gray-600 ml-2">Accuracy: <span
+                            class="text-green-500">67.57%</span></p>
+                </div>
+                <div class="flex-1 flex justify-end">
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1">Array</span>
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md mr-1">Dynamic Programming</span>
+                    <span class="bg-gray-300 text-gray-900 text-xs py-1 px-2 rounded-md">Sliding Window</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

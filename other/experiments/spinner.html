@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --coquelicot: #f15025ff;
+            --white: #ffffffff;
+            --timberwolf: #ced0ceff;
+            --eerie-black: #191919ff;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #e6e8e6ff; /* Platinum */
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .spinner-wave {
+            display: none; /* Hide spinner initially */
+        }
+
+        .wave-square {
+            width: 20px;
+            height: 20px;
+            background-color: var(--coquelicot);
+            margin: 0 5px;
+            animation: wave 1s infinite ease-in-out;
+        }
+
+        .wave-square:nth-child(2) {
+            background-color: var(--white);
+            animation-delay: 0.2s;
+        }
+
+        .wave-square:nth-child(3) {
+            background-color: var(--timberwolf);
+            animation-delay: 0.4s;
+        }
+
+        .wave-square:nth-child(4) {
+            background-color: var(--eerie-black);
+            animation-delay: 0.6s;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: scaleY(0.5);
+            }
+            50% {
+                transform: scaleY(1.2);
+            }
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: var(--eerie-black);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+    <title>Simplified Wave Loading Spinner</title>
+</head>
+<body>
+    <div class="spinner-wave" id="spinner">
+        <div class="wave-square"></div>
+        <div class="wave-square"></div>
+        <div class="wave-square"></div>
+        <div class="wave-square"></div>
+    </div>
+    <button onclick="toggleSpinner()">Toggle Spinner</button>
+
+    <script>
+        function toggleSpinner() {
+            const spinner = document.getElementById('spinner');
+            spinner.style.display = spinner.style.display === 'none' ? 'flex' : 'none';
+        }
+    </script>
+</body>
+</html>

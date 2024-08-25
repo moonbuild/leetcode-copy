@@ -1,0 +1,195 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multi Dropdown Selector</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .tag {
+        background-color: #f3f4f6;
+        border-radius: 0.25rem;
+        padding: 0.25rem 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        margin-right: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .tag button {
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 p-10">
+    <div class="max-w-md mx-auto">
+      <div class="relative">
+        <!-- Tags and Search -->
+        <div
+          class="flex flex-wrap items-center border border-gray-300 bg-white rounded p-2 cursor-pointer"
+          id="select-box"
+        >
+          <!-- Tags -->
+          <div id="selected-tags" class="flex flex-wrap">
+            <div class="tag">
+              string
+              <button type="button" onclick="removeTag(this)">
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <!-- Input Search -->
+          <input
+            type="text"
+            id="dropdown-input"
+            class="flex-grow p-1 focus:outline-none"
+            placeholder="Search tags..."
+          />
+          <button class="ml-2 focus:outline-none">
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div
+          class="absolute mt-1 w-full bg-white border border-gray-200 rounded dropdown-menu show"
+          id="dropdown-menu"
+        >
+          <ul class="max-h-60 overflow-y-auto" id="dropdown-list">
+            <li class="p-2 cursor-pointer hover:bg-gray-200" tag="array">
+              Array
+            </li>
+            <li class="p-2 cursor-pointer hover:bg-gray-200" tag="string">
+              String
+            </li>
+            <li class="p-2 cursor-pointer hover:bg-gray-200" tag="dynamic-programming">
+              Dynamic Programming
+            </li>
+            <li class="p-2 cursor-pointer hover:bg-gray-200" tag="hash-table">
+                Hash Table
+            </li>
+          </ul>
+          <div
+            class="p-2 text-center text-blue-500 cursor-pointer"
+            id="load-more-container"
+          >
+            Load More
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+        function convertToSlug(text){
+            return text
+            .toLowerCase() //convert to LowerCase
+            .replace(/\s+/g, '-') //replace spaces with hyphens
+        }
+        const allTags = [
+          "Array",
+          "String",
+          "Dynamic Programming",
+          "Hash Table",
+          "Graph",
+          "Tree",
+          "Linked List",
+          "Stack",
+          "Queue",
+          "Binary Search",
+          "Sorting",
+          "Greedy",
+          "Backtracking",
+          "Divide and Conquer",
+          "Bit Manipulation",
+          "Mathematics",
+          "Sliding Window",
+          "Two Pointers",
+          "Heap",
+          "Trie",
+        ];
+        var selectedTags = ['string'];
+        var limitPosition=4;
+        $('#load-more-container').on('click', function(){
+            console.log('click');
+            const dropdownList = $('#dropdown-list');
+            let tagContent = "";
+            limitPosition= Math.min(limitPosition+4, allTags.length);
+            for(let i=0; i<limitPosition; i++){
+                const tagSlug = allTags[i].toLowerCase();
+                tagContent += `
+                    <li class="p-2 cursor-pointer hover:bg-gray-200" tag="${tagSlug}">
+                        ${allTags[i]}
+                    </li>
+                `;
+            }
+            dropdownList.html(tagContent);
+        });
+        // listen to user typing and update dynamically
+        $('#dropdown-input').on('input', function(){
+            const inpVal = $(this).val();
+
+            console.log(inpVal);
+        });
+        $('#dropdown-list').on('click', 'li', function(){
+            const tagClicked = $(this).attr('tag');
+            //if user did not previously select
+            if (!selectedTags.includes(tagClicked)){
+                const tag = `
+                    <div class="tag">
+                    ${tagClicked}
+                    <button type="button" onclick="removeTag(this)">
+                        <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                        </svg>
+                    </button>
+                    </div>
+                `;
+                $('#selected-tags').append(tag);
+
+                selectedTags.push(tagClicked);
+
+            }
+
+        })
+
+
+    </script>
+  </body>
+</html>
